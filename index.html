@@ -7,7 +7,6 @@
     <title>SERVICE HSE</title>
     <link rel="icon" href="g/Logo.png">
     <style>
-        /* Set the background images for the entire page */
         body {
             margin: 0;
             padding: 0;
@@ -22,35 +21,18 @@
         }
 
         @keyframes rotateBackground {
-            0% {
-                background-image: url('g/OIP (1).jpeg');
-            }
-
-            20% {
-                background-image: url('g/b.jpeg');
-            }
-
-            30% {
-                background-image: url('g/a.jpeg');
-            }
-
-            60% {
-                background-image: url('g/d.jpeg');
-            }
-
-            80% {
-                background-image: url('g/c.jpeg');
-            }
-
-            100% {
-                background-image: url('g/b.jpeg');
-            }
+            0% { background-image: url('g/OIP (1).jpeg'); }
+            20% { background-image: url('g/b.jpeg'); }
+            30% { background-image: url('g/a.jpeg'); }
+            60% { background-image: url('g/d.jpeg'); }
+            80% { background-image: url('g/c.jpeg'); }
+            100% { background-image: url('g/b.jpeg'); }
         }
 
         h1 {
             text-align: center;
             position: absolute;
-            top: 02%;
+            top: 2%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
@@ -62,125 +44,68 @@
         button {
             padding: 40px 20px;
             font-size: 20px;
-            background-color: #4CAF50; /* لون الخلفية */
-            color: #fff; /* لون النص */
+            background-color: #4CAF50;
+            color: #fff;
             border: none;
             border-radius: 40px;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* تأثير التحويل */
+            transition: background-color 0.3s ease;
             position: absolute;
             top: 70%;
             right: 5%;
         }
 
         button:hover {
-            background-color: #45e049; /* #45a049 لون الخلفية عند التحويم بالفأرة */
+            background-color: #45e049;
         }
-        
 
-                /* Style for the emergency call button */
-        .emergency-button {
+        #showHideButton {
             background-color: #e74c3c;
             color: #fff;
             border: none;
-            border-radius: 5px;
+            border-radius: 40px;
             cursor: pointer;
             margin-top: 10px;
-            /* Add margin for spacing */
+            font-size: 20px;
+            padding: 10px 3px;
+            position: absolute;
+            top: 85%;
+            right: 3%;
         }
 
-    /* Style for the message input and send button container */
-    #messageContainer {
-        display: none; /* يكون مخفيًا ابتدائيًا */
-    }
-
-    /* Style for the show/hide button */
-    #showHideButton {
-        background-color: #e74c3c;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-
-        /* Style for the message display */
-        #messageDisplay {
-            margin-top: 10px;
-            padding: 10px;
+        #messageInput {
+            width: 200px;
+            padding: 8px;
+            margin: 8px 0;
+            font-size: 16px;
             border: 1px solid #ccc;
-            display: none;
-        }
-
-        /* Style for the emergency call button */
-        .emergency-button {
-            background-color: #e74c3c;
-            color: #fff;
-            border: none;
             border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            /* Add margin for spacing */
-        }
-
-    /* Style for the message input and send button container */
-    #messageContainer {
-        display: none; /* يكون مخفيًا ابتدائيًا */
-    }
-
-    /* Style for the show/hide button */
-    #showHideButton {
-        background-color: #e74c3c;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-
-        /* Style for the message display */
-        #messageDisplay {
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
         }
     </style>
 </head>
 
 <body>
     <h1>Welcome to Service HSE /HTJ</h1>
-    <!-- Add a button to navigate to the secondary page -->
     <a href="indexC.html"><button>Communicate</button></a>
-        </div>
     <div id="emergencyMessageContainer">
-        <!-- Display the emergency message -->
         <div id="messageDisplay"></div>
     </div>
 
-    <!-- Add the message input and send button -->
-    </div>
-    <div id="emergencyMessageContainer">
-        <!-- Display the emergency message -->
-        <div id="messageDisplay"></div>
-    </div>
+    <button id="showHideButton" onclick="toggleMessageContainer()">Emergency Message</button>
 
-    <!-- Add the show/hide button -->
-<button id="showHideButton" onclick="toggleMessageContainer()" style="background-color: #e74c3c; color: #fff; border: none; border-radius: 40px; cursor:pointer; margin-top: 10px; font-size: 20px; padding: 10px 3px; position: absolute; top: 85%; right:3%;">Emergency Message</button>
-
-    <!-- Add the message input and send button container -->
     <div id="messageContainer">
         <input type="text" id="messageInput" placeholder="Type your message...">
         <button class="emergency-button" onclick="sendEmergencyMessage()">Send Emergency Message</button>
     </div>
-     <input type="text" id="messageInput" placeholder="Type your message...">
-    <button class="emergency-button" onclick="sendEmergencyMessage()">Send Emergency Message</button>
+
     <script>
         function toggleMessageContainer() {
             var messageContainer = document.getElementById('messageContainer');
             var showHideButton = document.getElementById('showHideButton');
 
-            // Toggle the display of the message container
             if (messageContainer.style.display === 'none' || messageContainer.style.display === '') {
                 messageContainer.style.display = 'block';
                 showHideButton.textContent = 'Hide';
@@ -189,30 +114,23 @@
                 showHideButton.textContent = 'Emergency Message';
             }
         }
+
         function sendEmergencyMessage() {
-            // Get the message input value
             var message = document.getElementById('messageInput').value;
 
-            // Check if the message is not empty
             if (message.trim() !== "") {
-                // Display the message on the web page
                 var messageDisplay = document.getElementById('messageDisplay');
                 messageDisplay.textContent = "Emergency Message: " + message;
                 messageDisplay.style.display = "block";
 
-                // Request permission for notifications
                 Notification.requestPermission().then(function (permission) {
-                    // Check if the user granted permission
                     if (permission === "granted") {
-                        // Iterate through each card and display the message using Notification API
                         var cards = document.querySelectorAll('.card');
                         cards.forEach(function (card) {
-                            // Extract email from the card
                             var emailElement = card.querySelector('.email');
                             var email = emailElement.textContent.trim();
 
-                            // Display the message using Notification API
-                            var notification = new Notification("Emergencyطوارئ Message", {
+                            var notification = new Notification("Emergency Message", {
                                 body: "Message sent to: " + email + "\nMessage: " + message
                             });
                         });
@@ -222,7 +140,7 @@
                 });
 
                 document.getElementById('messageInput').value = "";
-                // Hide the message after 1 minute (60000 milliseconds)
+
                 setTimeout(function () {
                     messageDisplay.style.display = "none";
                 }, 60000);
