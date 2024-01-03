@@ -7,6 +7,7 @@
     <title>SERVICE HSE</title>
     <link rel="icon" href="g/Logo.png">
     <style>
+        /* Set the background images for the entire page */
         body {
             margin: 0;
             padding: 0;
@@ -21,18 +22,35 @@
         }
 
         @keyframes rotateBackground {
-            0% { background-image: url('g/OIP (1).jpeg'); }
-            20% { background-image: url('g/b.jpeg'); }
-            30% { background-image: url('g/a.jpeg'); }
-            60% { background-image: url('g/d.jpeg'); }
-            80% { background-image: url('g/c.jpeg'); }
-            100% { background-image: url('g/b.jpeg'); }
+            0% {
+                background-image: url('g/OIP (1).jpeg');
+            }
+
+            20% {
+                background-image: url('g/b.jpeg');
+            }
+
+            30% {
+                background-image: url('g/a.jpeg');
+            }
+
+            60% {
+                background-image: url('g/d.jpeg');
+            }
+
+            80% {
+                background-image: url('g/c.jpeg');
+            }
+
+            100% {
+                background-image: url('g/b.jpeg');
+            }
         }
 
         h1 {
             text-align: center;
             position: absolute;
-            top: 2%;
+            top: 02%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
@@ -44,111 +62,29 @@
         button {
             padding: 40px 20px;
             font-size: 20px;
-            background-color: #4CAF50;
-            color: #fff;
+            background-color: #4CAF50; /* لون الخلفية */
+            color: #fff; /* لون النص */
             border: none;
             border-radius: 40px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease; /* تأثير التحويل */
             position: absolute;
             top: 70%;
             right: 5%;
         }
 
         button:hover {
-            background-color: #45e049;
-        }
-
-        #showHideButton {
-            background-color: #e74c3c;
-            color: #fff;
-            border: none;
-            border-radius: 40px;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 20px;
-            padding: 10px 3px;
-            position: absolute;
-            top: 85%;
-            right: 3%;
-        }
-
-        #messageInput {
-            width: 200px;
-            padding: 8px;
-            margin: 8px 0;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            position: fixed;
-            top: 20px;
-            right: 20px;
+            background-color: #45e049; /* #45a049 لون الخلفية عند التحويم بالفأرة */
         }
     </style>
 </head>
 
 <body>
     <h1>Welcome to Service HSE /HTJ</h1>
+    <!-- Add a button to navigate to the secondary page -->
     <a href="indexC.html"><button>Communicate</button></a>
-    <div id="emergencyMessageContainer">
-        <div id="messageDisplay"></div>
-    </div>
-
-    <button id="showHideButton" onclick="toggleMessageContainer()">Emergency Message</button>
-
-    <div id="messageContainer">
-        <input type="text" id="messageInput" placeholder="Type your message...">
-        <button class="emergency-button" onclick="sendEmergencyMessage()">Send Emergency Message</button>
-    </div>
-
-    <script>
-        function toggleMessageContainer() {
-            var messageContainer = document.getElementById('messageContainer');
-            var showHideButton = document.getElementById('showHideButton');
-
-            if (messageContainer.style.display === 'none' || messageContainer.style.display === '') {
-                messageContainer.style.display = 'block';
-                showHideButton.textContent = 'Hide';
-            } else {
-                messageContainer.style.display = 'none';
-                showHideButton.textContent = 'Emergency Message';
-            }
-        }
-
-        function sendEmergencyMessage() {
-            var message = document.getElementById('messageInput').value;
-
-            if (message.trim() !== "") {
-                var messageDisplay = document.getElementById('messageDisplay');
-                messageDisplay.textContent = "Emergency Message: " + message;
-                messageDisplay.style.display = "block";
-
-                Notification.requestPermission().then(function (permission) {
-                    if (permission === "granted") {
-                        var cards = document.querySelectorAll('.card');
-                        cards.forEach(function (card) {
-                            var emailElement = card.querySelector('.email');
-                            var email = emailElement.textContent.trim();
-
-                            var notification = new Notification("Emergency Message", {
-                                body: "Message sent to: " + email + "\nMessage: " + message
-                            });
-                        });
-                    } else {
-                        alert("Permission denied for notifications. Please grant permission and try again.");
-                    }
-                });
-
-                document.getElementById('messageInput').value = "";
-
-                setTimeout(function () {
-                    messageDisplay.style.display = "none";
-                }, 60000);
-            } else {
-                alert("Please enter a message before sending.");
-            }
-        }
-    </script>
+   <button id="showHideButton" onclick="toggleMessageContainer()" style="background-color: #e74c3c; color: #fff; border: none; border-radius: 50px; cursor:pointer; margin-top: 10px; font-size: 20px; padding: 17px 23px; position: absolute; top: 85%; right:3%;">
+    Emergency Message</button>
 </body>
 
 </html>
