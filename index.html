@@ -77,6 +77,56 @@
             background-color: #45e049; /* #45a049 لون الخلفية عند التحويم بالفأرة */
         }
     </style>
+        <style>
+        .emergency-button {
+        background-color: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 15px 20px;
+        font-size: 10px;
+        display: block;
+        margin-top: 10px;
+        position: absolute;
+        top: 85%;
+        right: 3%;
+        z-index: 1; /* ضع الزر أدنى من الخلفية */
+        }
+        #messageContainer {
+            display: none;
+            position: absolute;
+            top: 7%; /* ضعه في المكان المناسب */
+            right: 5%; /* ضعه في المكان المناسب */
+            z-index: 2; /* ضع حقل الإدخال وزر الإرسال فوق الخلفية */
+        }
+
+        #showHideButton {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 10px;
+            padding: 17px 23px;
+            position: absolute;
+            top: 85%;
+            right: 6%;
+        }
+
+        #messageDisplay {
+            margin-top: 20px;
+            padding: 10px;
+            border: 20px solid #ccc;
+            display: none;
+            position: absolute;
+            top: 10%; /* ضع القيمة المناسبة هنا */
+            right: 85%; /* ضع القيمة المناسبة هنا */
+            transform: translate(1%, -50%); /* لتوسيط الرسالة */
+            color: #3366cc; /* لون النص هنا */
+        }
+    </style>
 </head>
 
 <body>
@@ -85,6 +135,64 @@
     <a href="indexC.html"><button>Communicate</button></a>
    <button id="showHideButton" onclick="toggleMessageContainer()" style="background-color: #e74c3c; color: #fff; border: none; border-radius: 50px; cursor:pointer; margin-top: 10px; font-size: 20px; padding: 17px 23px; position: absolute; top: 85%; right:3%;">
     Emergency Message</button>
+        <!-- Add the message input and send button -->
+    </div>
+    <div id="emergencyMessageContainer">
+        <!-- Display the emergency message -->
+        <div id="messageDisplay"></div>
+    </div>
+        <!-- Add the message input and send button container -->
+    <div id="messageContainer">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button class="emergency-button" onclick="sendEmergencyMessage()">Send Emergency Message</button>
+    </div>
+    <script>
+        function toggleMessageContainer() {
+            var messageContainer = document.getElementById('messageContainer');
+            var showHideButton = document.getElementById('showHideButton');
+
+            if (messageContainer.style.display === 'none' || messageContainer.style.display === '') {
+                messageContainer.style.display = 'block';
+                showHideButton.textContent = 'Hide';
+            } else {
+                messageContainer.style.display = 'none';
+                showHideButton.textContent = 'Emergency Message';
+            }
+        }
+
+        function sendEmergencyMessage() {
+            var message = document.getElementById('messageInput').value;
+
+            if (message.trim() !== "") {
+                var messageDisplay = document.getElementById('messageDisplay');
+                messageDisplay.textContent = "E_M:=====>>: " + message;
+                messageDisplay.style.display = "block";
+
+                Notification.requestPermission().then(function (permission) {
+                    if (permission === "granted") {
+                        var cards = document.querySelectorAll('.card');
+                        cards.forEach(function (card) {
+                            var emailElement = card.querySelector('.email');
+                            var email = emailElement.textContent.trim();
+
+                            var notification = new Notification("Emergency Message", {
+                                body: "Message sent to: " + email + "\nMessage: " + message
+                            });
+                        });
+                    } else {
+                        alert("Permission denied for notifications. Please grant permission and try again.");
+                    }
+                });
+
+                document.getElementById('messageInput').value = "";
+                setTimeout(function () {
+                    messageDisplay.style.display = "none";
+                }, 60000);
+            } else {
+                alert("Please enter a message before sending.");
+            }
+        }
+    </script>
 </body>
 
 </html>
