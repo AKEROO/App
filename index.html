@@ -76,6 +76,41 @@
         button:hover {
             background-color: #45e049; /* #45a049 لون الخلفية عند التحويم بالفأرة */
         }
+        
+
+                /* Style for the emergency call button */
+        .emergency-button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            /* Add margin for spacing */
+        }
+
+    /* Style for the message input and send button container */
+    #messageContainer {
+        display: none; /* يكون مخفيًا ابتدائيًا */
+    }
+
+    /* Style for the show/hide button */
+    #showHideButton {
+        background-color: #e74c3c;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+        /* Style for the message display */
+        #messageDisplay {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            display: none;
+        }
     </style>
 </head>
 
@@ -83,6 +118,86 @@
     <h1>Welcome to Service HSE /HTJ</h1>
     <!-- Add a button to navigate to the secondary page -->
     <a href="indexC.html"><button>Communicate</button></a>
+        </div>
+    <div id="emergencyMessageContainer">
+        <!-- Display the emergency message -->
+        <div id="messageDisplay"></div>
+    </div>
+
+    <!-- Add the message input and send button -->
+    </div>
+    <div id="emergencyMessageContainer">
+        <!-- Display the emergency message -->
+        <div id="messageDisplay"></div>
+    </div>
+
+    <!-- Add the show/hide button -->
+   <button id="showHideButton" onclick="toggleMessageContainer()" style="background-color: #e74c3c; color: #fff; border: none; border-radius: 50px; cursor:pointer; margin-top: 10px; font-size: 15px; padding: 17px 23px; position: absolute; top: 75%; right: 11px;">
+    Emergency Message</button>
+
+    <!-- Add the message input and send button container -->
+    <div id="messageContainer">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button class="emergency-button" onclick="sendEmergencyMessage()">Send Emergency Message</button>
+    </div>
+     <input type="text" id="messageInput" placeholder="Type your message...">
+    <button class="emergency-button" onclick="sendEmergencyMessage()">Send Emergency Message</button>
+    <script>
+        function toggleMessageContainer() {
+            var messageContainer = document.getElementById('messageContainer');
+            var showHideButton = document.getElementById('showHideButton');
+
+            // Toggle the display of the message container
+            if (messageContainer.style.display === 'none' || messageContainer.style.display === '') {
+                messageContainer.style.display = 'block';
+                showHideButton.textContent = 'Hide';
+            } else {
+                messageContainer.style.display = 'none';
+                showHideButton.textContent = 'Emergency Message';
+            }
+        }
+        function sendEmergencyMessage() {
+            // Get the message input value
+            var message = document.getElementById('messageInput').value;
+
+            // Check if the message is not empty
+            if (message.trim() !== "") {
+                // Display the message on the web page
+                var messageDisplay = document.getElementById('messageDisplay');
+                messageDisplay.textContent = "Emergency Message: " + message;
+                messageDisplay.style.display = "block";
+
+                // Request permission for notifications
+                Notification.requestPermission().then(function (permission) {
+                    // Check if the user granted permission
+                    if (permission === "granted") {
+                        // Iterate through each card and display the message using Notification API
+                        var cards = document.querySelectorAll('.card');
+                        cards.forEach(function (card) {
+                            // Extract email from the card
+                            var emailElement = card.querySelector('.email');
+                            var email = emailElement.textContent.trim();
+
+                            // Display the message using Notification API
+                            var notification = new Notification("Emergencyطوارئ Message", {
+                                body: "Message sent to: " + email + "\nMessage: " + message
+                            });
+                        });
+                    } else {
+                        alert("Permission denied for notifications. Please grant permission and try again.");
+                    }
+                });
+
+                document.getElementById('messageInput').value = "";
+                // Hide the message after 1 minute (60000 milliseconds)
+                setTimeout(function () {
+                    messageDisplay.style.display = "none";
+                }, 60000);
+            } else {
+                alert("Please enter a message before sending.");
+            }
+        }
+    </script>
 </body>
 
 </html>
