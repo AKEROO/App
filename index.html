@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SERVICE HSE</title>
-    <link rel="icon" href="g/Logo.png">
+    <link rel="icon" href="g/Logo.jpg">
     <style>
         /* Set the background images for the entire page */
         body {
@@ -133,15 +133,9 @@
     <h1>Welcome to Service HSE /HTJ</h1>
     <!-- Add a button to navigate to the secondary page -->
     <a href="indexC.html"><button>Communicate</button></a>
-   <button id="showHideButton" onclick="toggleMessageContainer()"">
-    Emergency Message</button>
-        <!-- Add the message input and send button -->
-    </div>
-    <div id="emergencyMessageContainer">
-        <!-- Display the emergency message -->
-        <div id="messageDisplay"></div>
-    </div>
-        <!-- Add the message input and send button container -->
+    <button id="showHideButton" onclick="toggleMessageContainer()">Emergency Message</button>
+
+    <!-- Add the message input and send button container -->
     <div id="messageContainer">
         <input type="text" id="messageInput" placeholder="Type your message...">
         <button class="emergency-button" onclick="sendEmergencyMessage()">Send Emergency Message</button>
@@ -164,55 +158,19 @@
             var message = document.getElementById('messageInput').value;
 
             if (message.trim() !== "") {
-                var messageDisplay = document.getElementById('messageDisplay');
-                messageDisplay.textContent = "E_M:=====>>: " + message;
-                messageDisplay.style.display = "block";
-
-                // Replace the following email array with the actual emails of the employees
-                var employeesEmails = [
-    'Mostefa.Bourouaha@Sonatrach.dz',
-    'Hicham.BOUALI@Sonatrach.dz',
-    'ABDELKADER.ABBA@Sonatrach.dz',
-    'FAYCAL.BAGUI@Sonatrach.dz',
-    'MOHAMMEDTAQIYEDDINE.BELAZGHEM@Sonatrach.dz',
-    'TAYEBI.Abdallah@Sonatrach.dz',
-    'Fouad.ALLAOUA@Sonatrach.dz',
-    'BOUKHRIS.Medjdoub@Sonatrach.dz',
-    'TARIK.MECHAKRA@Sonatrach.dz',
-    'MEBAREK.MAMMERI@Sonatrach.dz',
-    'BOUZIANE.Bachir@Sonatrach.dz',
-    'Abdelkader.Hamlaoui@Sonatrach.dz',
-    'SAID.ATAOUAT@Sonatrach.dz',
-    'Lhacene.Hacene@Sonatrach.dz',
-    'MOHAMMEDABDALLAH.AKRABOU@Sonatrach.dz',
-    'MOHAMMEDELHASSAN.CHAFAI@Sonatrach.dz',
-    'MUSTAPHA.MAHFOUD@Sonatrach.dz',
-    'ABDELLAH.HAMI@Sonatrach.dz',
-    'AHMED.ABIDI@Sonatrach.dz',
-    'NOUREDDINE.ZAHOUANI@Sonatrach.dz',
-    'Yahia.Meftah@Sonatrach.dz',
-    'ILYAS.SMAHI@Sonatrach.dz'
-];
-
-
-                Notification.requestPermission().then(function (permission) {
-                    if (permission === "granted") {
-                        employeesEmails.forEach(function (email) {
-                            var notification = new Notification("Emergency Message", {
-                                body: "Message sent to: " + email + "\nMessage: " + message
-                            });
-                        });
-                    } else {
-                        alert("Permission denied for notifications. Please grant permission and try again.");
+                // هنا قم بإرسال البيانات إلى صفحة PHP المختصة
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'send_email.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        // اعتمادًا على رد الصفحة PHP، يمكنك تنفيذ إجراءات إضافية هنا
+                        alert("تم إرسال الرسالة بنجاح!");
                     }
-                });
-
-                document.getElementById('messageInput').value = "";
-                setTimeout(function () {
-                    messageDisplay.style.display = "none";
-                }, 300000);
+                };
+                xhr.send('message=' + encodeURIComponent(message));
             } else {
-                alert("Please enter a message before sending.");
+                alert("الرجاء إدخال رسالة قبل الإرسال.");
             }
         }
     </script>
