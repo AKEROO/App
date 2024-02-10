@@ -127,6 +127,46 @@
             color: #3366cc; /* لون النص هنا */
         }
     </style>
+            <style>
+        /* ... ستايل الزر الأحمر هنا ... */
+        .intervention-button {
+            padding: 40px 20px;
+            font-size: 20px;
+            background-color: #e73c3c; /* لون الخلفية */
+            color: #fff; /* لون النص */
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* تأثير التحويل */
+            position: absolute;
+            top: 70%;
+            right: 37%; /* تعديل الموقع بناءً على الحاجة */
+        }
+
+        .intervention-button:hover {
+            background-color: #d43f3a; /* #d43f3a لون الخلفية عند التحويم بالفأرة */
+        }
+    </style>
+            <style>
+        /* ... ستايل الزر الأحمر هنا ... */
+        .prevention-button {
+            padding: 40px 20px;
+            font-size: 20px;
+            background-color: #e75c3c; /* لون الخلفية */
+            color: #fff; /* لون النص */
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* تأثير التحويل */
+            position: absolute;
+            top: 70%;
+            right: 75%; /* تعديل الموقع بناءً على الحاجة */
+        }
+
+        .prevention-button:hover {
+            background-color: #d43f3a; /* #d43f3a لون الخلفية عند التحويم بالفأرة */
+        }
+    </style>
 </head>
 
 <body>
@@ -140,6 +180,9 @@
         <input type="text" id="messageInput" placeholder="Type your message...">
         <button class="emergency-button" onclick="sendEmergencyMessage()">Send Emergency Message</button>
     </div>
+      <button class="intervention-button" onclick="window.location.href='intervention_service.html'">Intervention service</button>
+
+      <button class="prevention-button" onclick="window.location.href='prevention_service.html'">Prevention service</button>
     <script>
         function toggleMessageContainer() {
             var messageContainer = document.getElementById('messageContainer');
